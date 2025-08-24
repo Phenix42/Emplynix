@@ -1,0 +1,191 @@
+[
+  {
+    "_id": "job1",
+    "title": "Senior Frontend Developer",
+    "company": "TechCorp Solutions",
+    "location": "San Francisco, CA",
+    "type": "Full-time",
+    "salary": "$90,000 - $120,000",
+    "experience": "5+ years",
+    "description": "We are looking for an experienced Frontend Developer to join our dynamic team. You will be responsible for developing user-facing web applications using modern JavaScript frameworks and ensuring excellent user experience.",
+    "requirements": [
+      "5+ years of experience with React.js",
+      "Strong knowledge of JavaScript, HTML5, and CSS3",
+      "Experience with state management (Redux/Context API)",
+      "Familiarity with RESTful APIs",
+      "Knowledge of responsive design principles"
+    ],
+    "benefits": [
+      "Health insurance",
+      "401(k) matching",
+      "Flexible work hours",
+      "Remote work options",
+      "Professional development budget"
+    ],
+    "status": "active",
+    "applicationCount": 8,
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "_id": "job2",
+    "title": "Full Stack Java Developer",
+    "company": "InnovateTech Inc",
+    "location": "Austin, TX",
+    "type": "Full-time",
+    "salary": "$85,000 - $110,000",
+    "experience": "3-5 years",
+    "description": "Join our backend team to build scalable web applications using Java Spring Boot. You'll work on microservices architecture and collaborate with cross-functional teams to deliver high-quality software solutions.",
+    "requirements": [
+      "3+ years of Java development experience",
+      "Strong knowledge of Spring Boot framework",
+      "Experience with microservices architecture",
+      "Database design and SQL skills",
+      "Understanding of RESTful web services"
+    ],
+    "benefits": [
+      "Competitive salary",
+      "Stock options",
+      "Unlimited PTO",
+      "Learning and development opportunities",
+      "Modern office environment"
+    ],
+    "status": "active",
+    "applicationCount": 6,
+    "createdAt": "2024-01-20T14:15:00Z"
+  },
+  {
+    "_id": "job3",
+    "title": "UI/UX Designer",
+    "company": "Creative Studios",
+    "location": "New York, NY",
+    "type": "Full-time",
+    "salary": "$70,000 - $95,000",
+    "experience": "2-4 years",
+    "description": "We're seeking a talented UI/UX Designer to create intuitive and visually appealing user interfaces. You'll work closely with product managers and developers to design user-centered digital experiences.",
+    "requirements": [
+      "2+ years of UI/UX design experience",
+      "Proficiency in Figma, Sketch, or Adobe XD",
+      "Strong understanding of user-centered design principles",
+      "Experience with prototyping and wireframing",
+      "Knowledge of HTML/CSS is a plus"
+    ],
+    "benefits": [
+      "Creative work environment",
+      "Design tool subscriptions",
+      "Conference attendance budget",
+      "Flexible schedule",
+      "Health and dental insurance"
+    ],
+    "status": "active",
+    "applicationCount": 12,
+    "createdAt": "2024-01-25T09:45:00Z"
+  },
+  {
+    "_id": "job4",
+    "title": "DevOps Engineer",
+    "company": "CloudTech Systems",
+    "location": "Seattle, WA",
+    "type": "Full-time",
+    "salary": "$95,000 - $130,000",
+    "experience": "4-6 years",
+    "description": "Looking for a DevOps Engineer to manage our cloud infrastructure and CI/CD pipelines. You'll be responsible for automating deployment processes and ensuring system reliability and scalability.",
+    "requirements": [
+      "4+ years of DevOps experience",
+      "Strong knowledge of AWS/Azure cloud platforms",
+      "Experience with Docker and Kubernetes",
+      "Proficiency in Infrastructure as Code (Terraform)",
+      "Knowledge of CI/CD tools (Jenkins, GitLab CI)"
+    ],
+    "benefits": [
+      "High salary range",
+      "Cloud certification reimbursement",
+      "Remote work flexibility",
+      "Tech equipment allowance",
+      "Performance bonuses"
+    ],
+    "status": "active",
+    "applicationCount": 4,
+    "createdAt": "2024-02-01T11:20:00Z"
+  },
+  {
+    "_id": "job5",
+    "title": "Data Scientist",
+    "company": "Analytics Pro",
+    "location": "Boston, MA",
+    "type": "Full-time",
+    "salary": "$100,000 - $140,000",
+    "experience": "3-5 years",
+    "description": "Join our data science team to analyze complex datasets and build predictive models. You'll work with machine learning algorithms and statistical methods to derive actionable insights from data.",
+    "requirements": [
+      "3+ years of data science experience",
+      "Strong knowledge of Python and R",
+      "Experience with machine learning frameworks",
+      "Statistical analysis and modeling skills",
+      "Knowledge of SQL and database systems"
+    ],
+    "benefits": [
+      "Competitive compensation",
+      "Research and development time",
+      "Conference and training budget",
+      "Collaborative team environment",
+      "Cutting-edge technology stack"
+    ],
+    "status": "active",
+    "applicationCount": 7,
+    "createdAt": "2024-02-05T16:30:00Z"
+  },
+  {
+    "_id": "job6",
+    "title": "Mobile App Developer",
+    "company": "MobileTech Solutions",
+    "location": "Los Angeles, CA",
+    "type": "Contract",
+    "salary": "$80,000 - $100,000",
+    "experience": "2-4 years",
+    "description": "Develop cross-platform mobile applications using React Native. You'll work on consumer-facing apps with millions of users and collaborate with design and backend teams.",
+    "requirements": [
+      "2+ years of React Native development",
+      "Experience with iOS and Android platforms",
+      "Knowledge of mobile app deployment",
+      "Understanding of mobile UI/UX principles",
+      "Experience with third-party integrations"
+    ],
+    "benefits": [
+      "Flexible contract terms",
+      "Remote work options",
+      "Project-based bonuses",
+      "Access to latest devices",
+      "Networking opportunities"
+    ],
+    "status": "active",
+    "applicationCount": 5,
+    "createdAt": "2024-02-10T13:15:00Z"
+  },
+  {
+    "_id": "job7",
+    "title": "Product Manager",
+    "company": "StartupXYZ",
+    "location": "Remote",
+    "type": "Full-time",
+    "salary": "$110,000 - $150,000",
+    "experience": "5+ years",
+    "description": "Lead product strategy and roadmap for our SaaS platform. You'll work with engineering, design, and sales teams to deliver features that drive user engagement and business growth.",
+    "requirements": [
+      "5+ years of product management experience",
+      "Experience with SaaS products",
+      "Strong analytical and problem-solving skills",
+      "Excellent communication and leadership abilities",
+      "Knowledge of agile development methodologies"
+    ],
+    "benefits": [
+      "Fully remote position",
+      "Equity participation",
+      "Unlimited vacation policy",
+      "Home office setup budget",
+      "Professional development opportunities"
+    ],
+    "status": "closed",
+    "applicationCount": 15,
+    "createdAt": "2024-01-10T08:00:00Z"
+  }
+]
