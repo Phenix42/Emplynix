@@ -5,11 +5,7 @@ const TopBar = () => {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 32);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 32);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -20,46 +16,27 @@ const TopBar = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Left side - Contact Info */}
           <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
+            <a href="mailto:hr@Emplynix.com" className="flex items-center space-x-2">
               <Mail className="h-4 w-4 text-blue-400" />
               <span className="text-gray-300">hr@Emplynix.com</span>
-            </div>
-            <div className="flex items-center space-x-2">
+            </a>
+            <a href="tel:+918125942585" className="flex items-center space-x-2">
               <Phone className="h-4 w-4 text-blue-400" />
               <span className="text-gray-300">+91-8125942585</span>
-            </div>
+            </a>
           </div>
-
-          {/* Right side - Social Media Icons */}
           <div className="flex items-center space-x-3">
-            <a 
-              href="#" 
-              className="text-gray-400 hover:text-white transition-colors duration-200 p-1"
-              aria-label="Facebook"
-            >
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1" aria-label="Facebook">
               <Facebook className="h-4 w-4" />
             </a>
-            <a 
-              href="#" 
-              className="text-gray-400 hover:text-white transition-colors duration-200 p-1"
-              aria-label="Twitter"
-            >
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1" aria-label="Twitter">
               <Twitter className="h-4 w-4" />
             </a>
-            <a 
-              href="#" 
-              className="text-gray-400 hover:text-white transition-colors duration-200 p-1"
-              aria-label="Instagram"
-            >
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1" aria-label="Instagram">
               <Instagram className="h-4 w-4" />
             </a>
-            <a 
-              href="#" 
-              className="text-gray-400 hover:text-white transition-colors duration-200 p-1"
-              aria-label="LinkedIn"
-            >
+            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1" aria-label="LinkedIn">
               <Linkedin className="h-4 w-4" />
             </a>
           </div>

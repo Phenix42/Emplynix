@@ -9,20 +9,18 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('Login attempt:', { email });
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
     if (!process.env.JWT_SECRET) {
-      console.error('JWT_SECRET is not defined');
       return res.status(500).json({ message: 'Server configuration error' });
     }
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User not found:', email);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      console.log('Password mismatch for:', email);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
     const token = jwt.sign(
@@ -30,7 +28,6 @@ router.post('/login', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
-    console.log('JWT issued for:', email, token);
     res.json({
       token,
       user: {
@@ -41,8 +38,7 @@ router.post('/login', async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -50,10 +46,11 @@ router.post('/login', async (req, res) => {
 router.post('/create-admin', async (req, res) => {
   try {
     const { email, password, name } = req.body;
-    console.log('Creating admin user:', { email, name });
+    if (!email || !password || !name) {
+      return res.status(400).json({ message: 'Email, password, and name are required' });
+    }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log('User already exists:', email);
       return res.status(400).json({ message: 'User already exists' });
     }
     const user = new User({
@@ -63,21 +60,17 @@ router.post('/create-admin', async (req, res) => {
       role: 'admin',
     });
     await user.save();
-    console.log('Admin user created:', email);
     res.status(201).json({ message: 'Admin user created successfully' });
   } catch (error) {
-    console.error('Error creating admin user:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
 // Validate token
 router.get('/validate', authenticateToken, async (req, res) => {
   try {
-    console.log('Validating token for user:', req.user);
     const user = await User.findById(req.user.userId).select('email name role');
     if (!user) {
-      console.log('User not found for ID:', req.user.userId);
       return res.status(404).json({ message: 'User not found' });
     }
     res.json({
@@ -89,8 +82,7 @@ router.get('/validate', authenticateToken, async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Token validation error:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

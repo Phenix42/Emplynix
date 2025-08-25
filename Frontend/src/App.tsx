@@ -24,7 +24,7 @@ function App() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobToApply, setJobToApply] = useState(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
-    const [searchFilters, setSearchFilters] = useState({
+  const [searchFilters, setSearchFilters] = useState({
     keyword: "",
     location: "",
   })
@@ -182,9 +182,7 @@ function App() {
     <div className="min-h-screen bg-white">
       {currentPage !== 'admin' && <TopBar />}
       {currentPage !== 'admin' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
-
       {renderPage()}
-
       {currentPage !== 'login' && currentPage !== 'admin' && <Footer />}
     </div>
   );
