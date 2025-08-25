@@ -23,6 +23,29 @@ router.get('/', authenticateToken, async (req, res) => {
   }
 });
 
+// Update candidate status
+router.put('/:id', authenticateToken, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const candidateId = req.params.id;
+
+    if (!status) return res.status(400).json({ message: 'Status is required' });
+
+    const candidate = await Candidate.findByIdAndUpdate(
+      candidateId,
+      { status },
+      { new: true }
+    );
+
+    if (!candidate) return res.status(404).json({ message: 'Candidate not found' });
+
+    res.json({ message: 'Candidate status updated', candidate });
+  } catch (error) {
+    console.error('Error updating candidate status:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 // Submit job application (public route)
 router.post('/apply', (req, res, next) => {
   upload.single('resume')(req, res, (err) => {

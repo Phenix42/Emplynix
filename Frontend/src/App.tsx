@@ -24,6 +24,10 @@ function App() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobToApply, setJobToApply] = useState(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
+    const [searchFilters, setSearchFilters] = useState({
+    keyword: "",
+    location: "",
+  })
 
   useEffect(() => {
     const validateToken = async () => {
@@ -160,10 +164,15 @@ function App() {
       default:
         return (
           <>
-            <Hero setCurrentPage={setCurrentPage} />
-            <LatestJobs />
+            <Hero setCurrentPage={setCurrentPage} setSearchFilters={setSearchFilters}/>
+            <LatestJobs
+             setCurrentPage={setCurrentPage} 
+             setSelectedJob={setSelectedJob} 
+             searchFilters={searchFilters} 
+            />
             <Employers setCurrentPage={setCurrentPage} /> {/* Pass setCurrentPage */}
             <Services />
+      
           </>
         );
     }
@@ -173,7 +182,9 @@ function App() {
     <div className="min-h-screen bg-white">
       {currentPage !== 'admin' && <TopBar />}
       {currentPage !== 'admin' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+
       {renderPage()}
+
       {currentPage !== 'login' && currentPage !== 'admin' && <Footer />}
     </div>
   );

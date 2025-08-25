@@ -1,5 +1,6 @@
 import express from 'express';
 import Job from '../models/Job.js';
+import Candidate from '../models/Candidate.js'; // Add this import
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -65,13 +66,19 @@ router.put('/:id', authenticateToken, async (req, res) => {
 // Delete job (admin only)
 router.delete('/:id', authenticateToken, async (req, res) => {
   try {
+    // Check if user is admin
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Only admins can delete jobs' });
+    }
     console.log(`Deleting job with ID: ${req.params.id}`);
     const job = await Job.findByIdAndDelete(req.params.id);
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }
+    // Delete all candidates for this job
+    await Candidate.deleteMany({ jobId: req.params.id });
     console.log('Deleted job:', job);
-    res.json({ message: 'Job deleted successfully' });
+    res.json({ message: 'Job and related candidates deleted successfully' });
   } catch (error) {
     console.error('Error deleting job:', error);
     res.status(500).json({ message: 'Server error', error: error.message });

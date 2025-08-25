@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const Hero = ({ setCurrentPage }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+interface Slide {
+  title: string;
+  description: string;
+  subDecription: string;
+  buttonText: string;
+  background: string;
+  image: string;
+  alignment: 'left' | 'right';
+}
 
-  const slides = [
+interface HeroProps {
+  setCurrentPage: (page: 'hirestaff' | 'jobs') => void;
+  setSearchFilters: (filters: { keyword: string; location: string }) => void; // ✅ new
+}
+
+const Hero: React.FC<HeroProps> = ({ setCurrentPage, setSearchFilters }) => {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [keyword, setKeyword] = useState('');
+  const [location, setLocation] = useState('');
+
+  const slides: Slide[] = [
     {
       title: "Find your perfect Candidate",
       description: "Connecting Talent with Opportunity",
@@ -32,17 +49,9 @@ const Hero = ({ setCurrentPage }) => {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
+  const nextSlide = (): void => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = (): void => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const goToSlide = (index: number): void => setCurrentSlide(index);
 
   return (
     <section className="relative min-h-screen overflow-hidden">
@@ -84,7 +93,7 @@ const Hero = ({ setCurrentPage }) => {
               }`}
             >
               <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                <span>{slides[currentSlide].title}</span>
+                {slides[currentSlide].title}
               </h1>
               <p className="text-xl text-gray-200 mb-8 leading-relaxed">
                 {slides[currentSlide].description}
@@ -106,33 +115,42 @@ const Hero = ({ setCurrentPage }) => {
           </div>
 
           {/* Job Search */}
-          <div className="w-full max-w-5xl">
-            <div className="bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-20 rounded-2xl p-8 shadow-2xl">
-              <h2 className="text-2xl font-bold text-white text-center mb-8">
-                Find your right job!
-              </h2>
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    placeholder="Keyword"
-                    className="w-full px-4 py-2 border border-white border-opacity-30 rounded-lg focus:ring-2 focus:ring-blue-300 text-lg bg-white bg-opacity-90 placeholder-gray-600"
-                  />
-                </div>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    placeholder="Location"
-                    className="w-full px-4 py-2 border border-white border-opacity-30 rounded-lg focus:ring-2 focus:ring-blue-300 text-lg bg-white bg-opacity-90 placeholder-gray-600"
-                  />
-                </div>
-                <button className="bg-[#3e94b3] hover:bg-[#7fbadd]  text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl md:w-auto">
-                  <Search className="h-5 w-5" />
-                  <span>Search</span>
-                </button>
-              </div>
-            </div>
-          </div>
+         <div className="w-full max-w-5xl">
+  <div className="bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-20 rounded-2xl p-8 shadow-2xl">
+    <h2 className="text-2xl font-bold text-white text-center mb-8">
+      Find your right job!
+    </h2>
+    <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex-1">
+        <input
+          type="text"
+          placeholder="Keyword"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          onBlur={() => setSearchFilters({ keyword, location })} // ✅ auto update on blur
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
+        />
+      </div>
+      <div className="flex-1">
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          onBlur={() => setSearchFilters({ keyword, location })} // ✅ auto update on blur
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
+        />
+      </div>
+      <button
+        onClick={() => setSearchFilters({ keyword, location })} // ✅ still works on click
+        className="bg-[#3e94b3] hover:bg-[#7fbadd] text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl md:w-auto"
+      >
+        <Search className="h-5 w-5" />
+        <span>Search</span>
+      </button>
+    </div>
+  </div>
+</div>
         </div>
       </div>
 

@@ -1,8 +1,16 @@
 import React from 'react';
-import { Briefcase, Users, Search, UserCheck, Building, Star, Target, Award } from 'lucide-react';
+import { LucideIcon, Search, UserCheck, Users, Building, Target } from 'lucide-react';
 
-const Services = () => {
-  const services = [
+// Define interface for service object
+interface Service {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const Services: React.FC = () => {
+  const services: Service[] = [
     {
       icon: Search,
       title: 'Permanent staffing',
@@ -35,10 +43,10 @@ const Services = () => {
     },
   ];
 
-  const renderCard = (service) => {
+  const renderCard = (service: Service): JSX.Element => {
     return (
       <div
-        className="relative h-60 w-30 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-cover bg-center"
+        className="relative h-60 w-full rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-cover bg-center"
         style={{ backgroundImage: `url(${service.image})` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -51,19 +59,17 @@ const Services = () => {
   };
 
   return (
-    // <<-- section now has the fixed background and overlay
     <section
       className="relative bg-fixed bg-center bg-cover py-16"
       id="services"
       style={{
-        // use whichever image you want as the big background
         backgroundImage: `url('/src/Asset/bgimagetint.jpeg')`,
       }}
     >
       {/* section-level black tint */}
- <div className="absolute inset-0 bg-black bg-opacity-80 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-80 pointer-events-none"></div>
 
-      {/* content (kept exactly like before) */}
+      {/* content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-300">Our Services</h2>
@@ -71,7 +77,6 @@ const Services = () => {
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          
           {/* Top Center Card */}
           <div className="lg:col-start-2 lg:col-span-1">
             {renderCard(services[0])}
@@ -81,8 +86,6 @@ const Services = () => {
           <div className="lg:col-start-1 lg:col-span-1">
             {renderCard(services[1])}
           </div>
-
-
           <div className="lg:col-start-3 lg:col-span-1">
             {renderCard(services[2])}
           </div>

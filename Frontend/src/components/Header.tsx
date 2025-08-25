@@ -58,15 +58,16 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   const shouldUseSolidBackground = currentPage !== 'home' || isScrolled;
 
   return (
-    <header
-      className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'top-0' : 'top-4' // Reduced from top-8 to top-4 to move logo up
-      } ${
-        shouldUseSolidBackground
-          ? 'bg-white shadow-lg border-b border-gray-200'
-          : 'bg-transparent'
-      }`}
-    >
+  <header
+  className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+    isScrolled ? 'top-0' : 'top-8'
+  } ${
+    shouldUseSolidBackground
+      ? 'bg-white shadow-lg border-b border-gray-200'
+      : 'bg-transparent'
+  }`}
+>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-7 lg:px-12">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
