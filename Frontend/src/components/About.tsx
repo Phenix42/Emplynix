@@ -1,5 +1,6 @@
 
 import { Users, Award, Heart, TrendingUp } from 'lucide-react';
+import aboutus from "../Asset/Aboutus3.jpeg"
 
 const About = () => {
   const values = [
@@ -49,7 +50,7 @@ const About = () => {
         {/* Image Above Heading */}
         <div className="mb-10">
           <img
-            src="src/Asset/Aboutus3.jpeg"
+            src={aboutus}
             alt="About Emplynix"
             className="w-full h-64 object-cover object-right rounded-xl shadow-md"
           />

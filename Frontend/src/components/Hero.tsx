@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import banner1 from "../Asset/banner1.jpg"
+import banner2 from "../Asset/banner-2.jpg"
 
 interface Slide {
   title: string;
@@ -28,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage, setSearchFilters }) => {
       subDecription: "Start your next step in success with us.",
       buttonText: "Post Vacancy",
       background: "from-blue-600 via-blue-700 to-indigo-800",
-      image: "/src/Asset/banner1.jpg",
+      image : banner1,
       alignment: "left"
     },
     {
@@ -37,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ setCurrentPage, setSearchFilters }) => {
       subDecription: "",
       buttonText: "Explore Jobs",
       background: "from-indigo-600 via-purple-700 to-blue-800",
-      image: "/src/Asset/banner-2.jpg",
+      image: banner2,
       alignment: "right"
     }
   ];

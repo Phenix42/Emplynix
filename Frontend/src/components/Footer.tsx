@@ -1,4 +1,5 @@
 import logo from "../Asset/LogoR.png"
+import map from "../Asset/mappin.png"
 import {Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
@@ -61,7 +62,7 @@ const Footer = () => {
       rel="noopener noreferrer"
     >
       <img
-        src="src/Asset/mappin.png"
+        src={map}
         alt="Company Location"
         className="w-full h-32 object-cover rounded mb-4 hover:opacity-90 transition-opacity duration-200"
       />

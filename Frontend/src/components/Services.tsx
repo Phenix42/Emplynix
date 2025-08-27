@@ -1,6 +1,10 @@
 import React from 'react';
 import { LucideIcon, Search, UserCheck, Users, Building, Target } from 'lucide-react';
-
+import PR from "../Asset/CC-services3.jpg"
+import RS from "../Asset/DD-services_home.jpg"
+import CS from "../Asset/DD-services_home2.jpg"
+import RPO from "../Asset/extra.webp"
+import bgtint from "../Asset/bgimagetint.jpeg"
 // Define interface for service object
 interface Service {
   icon: LucideIcon;
@@ -15,25 +19,25 @@ const Services: React.FC = () => {
       icon: Search,
       title: 'Permanent staffing',
       description: 'End-to-end recruitment solutions for permanent positions across all industries and experience levels.',
-      image: '/src/Asset/CC-services3.jpg'
+      image: PR
     },
     {
       icon: UserCheck,
       title: 'Remote staffing',
       description: 'Specialized executive recruitment for C-level and senior management positions.',
-      image: '/src/Asset/DD-services_home.jpg'
+      image: RS
     },
     {
       icon: Users,
       title: 'Contract staffing',
       description: 'Flexible staffing solutions for short-term projects and seasonal workforce needs.',
-      image: '/src/Asset/DD-services_home2.jpg'
+      image: CS
     },
     {
       icon: Building,
       title: 'RPO Services',
       description: 'Recruitment Process Outsourcing to streamline your entire hiring process.',
-      image: '/src/Asset/extra.webp'
+      image: RPO
     },
     {
       icon: Target,
@@ -63,7 +67,7 @@ const Services: React.FC = () => {
       className="relative bg-fixed bg-center bg-cover py-16"
       id="services"
       style={{
-        backgroundImage: `url('/src/Asset/bgimagetint.jpeg')`,
+        backgroundImage: bgtint,
       }}
     >
       {/* section-level black tint */}
