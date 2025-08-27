@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+  origin: ['https://emplynix.com'],  // only frontend
   credentials: true,
 }));
 app.use(express.json());
