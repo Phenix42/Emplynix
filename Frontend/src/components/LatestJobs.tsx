@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Award } from 'lucide-react';
+import { Job } from '../types/Job';
+import { mapToFullJob } from './utils';
 
-interface Job {
-  id: number;
-  title: string;
-  company: string;
-  location: string;
-  type: string;
-  experience: string;
-  posted: string;
-  createdAt: string; // Added to fix the error
-}
 
 interface LatestJobsProps {
   setCurrentPage: (page: string) => void;
@@ -109,7 +101,7 @@ const LatestJobs: React.FC<LatestJobsProps> = ({ setCurrentPage, setSelectedJob,
             <div className="space-y-4 mb-8">
               {filteredJobs.slice(0, visibleCount).map((job) => (
                 <div
-                  key={job.id}
+                  key={job._id}
                   className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100"
                 >
                   <div className="flex items-center justify-between">
@@ -137,7 +129,7 @@ const LatestJobs: React.FC<LatestJobsProps> = ({ setCurrentPage, setSelectedJob,
                     <div className="ml-6">
                       <button
                         onClick={() => {
-                          setSelectedJob(job);
+                          setSelectedJob(mapToFullJob(job));
                           setCurrentPage('jobDetails');
                         }}
                         className="bg-[#3e94b3] hover:bg-[#7fbadd] text-white px-6 py-2 rounded-lg font-medium transition-all duration-200"

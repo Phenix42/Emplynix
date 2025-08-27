@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TopBar from './components/TopBar';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -16,13 +16,16 @@ import JobDetails from './components/JobDetails';
 import JobApplicationForm from './components/JobApplicationForm';
 import ServiceDetails from './components/ServiceDetails';
 import axios from 'axios';
+import {Job} from '../src/types/Job'
+import { mapToFullJob } from './components/utils';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState<string | null>(localStorage.getItem('adminToken'));
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [jobToApply, setJobToApply] = useState(null);
+const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+
+  const [jobToApply, setJobToApply] = useState<Job | null>(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [searchFilters, setSearchFilters] = useState({
     keyword: "",
@@ -34,7 +37,7 @@ function App() {
       const storedToken = localStorage.getItem('adminToken');
       if (storedToken) {
         try {
-          const response = await axios.get('http://localhost:5001/api/auth/validate', {
+          await axios.get('http://localhost:5001/api/auth/validate', {
             headers: { Authorization: `Bearer ${storedToken}` },
           });
           setIsLoggedIn(true);
@@ -134,7 +137,7 @@ function App() {
               job={selectedJob}
               onBack={() => setCurrentPage('jobs')}
               onApply={(job) => {
-                setJobToApply(job);
+                setJobToApply(mapToFullJob(job));
                 setCurrentPage('jobApplication');
               }}
             />

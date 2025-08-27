@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Clock, Award } from 'lucide-react';
-
-interface Job {
-  id: string | number;
-  title: string;
-  location: string;
-  type: string;
-  experience: string;
-  posted: string;
-  createdAt: string; // Added to fix the error
-}
+import { Job } from '../types/Job'; // ✅ central Job type
 
 interface JobsProps {
   onJobClick: (job: Job) => void;
@@ -23,8 +14,7 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
 
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [searchLocation, setSearchLocation] = useState<string>('');
-
-  const [visibleCount, setVisibleCount] = useState<number>(4); // 👈 initial visible jobs
+  const [visibleCount, setVisibleCount] = useState<number>(4);
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
 
@@ -38,16 +28,15 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
         setAllJobs(data);
         setFilteredJobs(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred while fetching jobs');
+        setError(err instanceof Error ? err.message : 'Error fetching jobs');
       } finally {
         setLoading(false);
       }
     };
-
     fetchJobs();
   }, [API_URL]);
 
-  const handleSearch = (): void => {
+  const handleSearch = () => {
     const keyword = searchKeyword.toLowerCase();
     const location = searchLocation.toLowerCase();
 
@@ -66,28 +55,20 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
     });
 
     setFilteredJobs(results);
-    setVisibleCount(4); // 👈 reset visible count after search
+    setVisibleCount(4);
   };
 
-  const getRelativeTime = (dateString: string): string => {
+  const getRelativeTime = (dateString: string) => {
     const now = new Date();
     const postedDate = new Date(dateString);
     const diffMs = now.getTime() - postedDate.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffDays < 1) {
-      return 'Today';
-    } else if (diffDays === 1) {
-      return '1 day ago';
-    } else if (diffDays < 7) {
-      return `${diffDays} days ago`;
-    } else if (diffDays < 30) {
-      const weeks = Math.floor(diffDays / 7);
-      return weeks === 1 ? '1 week ago' : `${weeks} weeks ago`;
-    } else {
-      const months = Math.floor(diffDays / 30);
-      return months === 1 ? '1 month ago' : `${months} months ago`;
-    }
+    if (diffDays < 1) return 'Today';
+    if (diffDays === 1) return '1 day ago';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    return `${Math.floor(diffDays / 30)} months ago`;
   };
 
   return (
@@ -104,26 +85,22 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
             </span>
           </h2>
           <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <input
-                type="text"
-                placeholder="Keyword (e.g. Developer, Designer)"
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-                onBlur={handleSearch}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
-              />
-            </div>
-            <div className="flex-1">
-              <input
-                type="text"
-                placeholder="Location "
-                value={searchLocation}
-                onChange={(e) => setSearchLocation(e.target.value)}
-                onBlur={handleSearch}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Keyword (e.g. Developer, Designer)"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              onBlur={handleSearch}
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              value={searchLocation}
+              onChange={(e) => setSearchLocation(e.target.value)}
+              onBlur={handleSearch}
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3e94b3] shadow-sm placeholder-gray-400"
+            />
             <button
               onClick={handleSearch}
               className="bg-[#3e94b3] hover:bg-[#7fbadd] text-white px-10 py-3 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all duration-200 shadow-lg hover:scale-105 md:w-auto"
@@ -145,7 +122,7 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
             <p className="text-lg">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="mt-6 bg-gradient-to-r from-[#3e94b3] to-[#7fbadd] hover:from-[#7fbadd] hover:to-[#3e94b3] text-white px-6 py-2 rounded-xl shadow font-semibold"
+              className="mt-6 bg-gradient-to-r from-[#3e94b3] to-[#7fbadd] text-white px-6 py-2 rounded-xl shadow font-semibold"
             >
               Retry
             </button>
@@ -158,7 +135,7 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
           <div className="space-y-6">
             {filteredJobs.slice(0, visibleCount).map((job) => (
               <div
-                key={job.id}
+                key={job._id}
                 onClick={() => onJobClick(job)}
                 className="cursor-pointer bg-white/95 rounded-xl p-5 shadow-lg border border-blue-100 hover:shadow-2xl hover:border-blue-300 transition-all duration-200 group relative overflow-hidden"
               >
@@ -183,7 +160,8 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
                       </div>
                     </div>
                     <p className="text-xs text-gray-400 mt-1">
-                      <span className="font-medium text-[#3e94b3]">Posted</span> {getRelativeTime(job.createdAt)}
+                      <span className="font-medium text-[#3e94b3]">Posted</span>{' '}
+                      {getRelativeTime(job.createdAt)}
                     </p>
                   </div>
                   <div className="flex-shrink-0 mt-4 md:mt-0">

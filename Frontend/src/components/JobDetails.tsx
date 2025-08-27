@@ -2,15 +2,20 @@ import React from 'react';
 import { MapPin, Clock, Award } from 'lucide-react';
 
 interface Job {
-  id: number;
+  _id: string;
   title: string;
   company: string;
   location: string;
   type: string;
+  salary: string;
   experience: string;
   description: string;
-  requirements?: string[]; // API gives this
+  requirements: string[];
+  benefits: string[];
+  status: string;
+  createdAt: string;
 }
+
 
 interface JobDetailsProps {
   job: Job | null;

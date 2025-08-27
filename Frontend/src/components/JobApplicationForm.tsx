@@ -10,8 +10,14 @@ import {
   FileText,
   ArrowLeft,
 } from 'lucide-react';
+import { Job } from '../types/Job'; // ✅ import central Job type
 
-const JobApplicationForm = ({ job, onBack }: { job: any; onBack: () => void }) => {
+interface JobApplicationFormProps {
+  job: Job | null; // ✅ allow null (safe for first render)
+  onBack: () => void;
+}
+
+const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ job, onBack }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +29,7 @@ const JobApplicationForm = ({ job, onBack }: { job: any; onBack: () => void }) =
     qualification: '',
     resume: null as File | null,
   });
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -37,6 +44,11 @@ const JobApplicationForm = ({ job, onBack }: { job: any; onBack: () => void }) =
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!job) {
+      setError("No job selected to apply");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -49,7 +61,7 @@ const JobApplicationForm = ({ job, onBack }: { job: any; onBack: () => void }) =
     formDataToSend.append('currentCTC', formData.currentCTC);
     formDataToSend.append('expectedCTC', formData.expectedCTC);
     formDataToSend.append('qualification', formData.qualification);
-    formDataToSend.append('jobId', job._id);
+    formDataToSend.append('jobId', job._id.toString()); // ✅ ensure string type
     if (formData.resume) {
       formDataToSend.append('resume', formData.resume);
     }
@@ -82,122 +94,128 @@ const JobApplicationForm = ({ job, onBack }: { job: any; onBack: () => void }) =
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r bg-[#3e94b3] px-8 py-6">
             <h2 className="text-3xl font-bold text-white text-center">
-              Apply for: {job?.title}
+              {job ? `Apply for: ${job.title}` : "No Job Selected"}
             </h2>
             <p className="text-blue-100 text-center mt-2">
               Please fill out the form below to apply
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8">
-            {error && (
-              <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg">
-                {error}
-              </div>
-            )}
-            <div className="grid md:grid-cols-2 gap-6">
-              <FormInput
-                icon={<User className="h-5 w-5 text-gray-400" />}
-                label="Full Name *"
-                name="name"
-                type="text"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<Mail className="h-5 w-5 text-gray-400" />}
-                label="Email ID *"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<Phone className="h-5 w-5 text-gray-400" />}
-                label="Contact Number *"
-                name="contact"
-                type="tel"
-                placeholder="Enter contact number"
-                value={formData.contact}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<Clock className="h-5 w-5 text-gray-400" />}
-                label="Notice Period (in days) *"
-                name="noticePeriod"
-                type="number"
-                placeholder="e.g., 30"
-                value={formData.noticePeriod}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<Briefcase className="h-5 w-5 text-gray-400" />}
-                label="Experience (in years) *"
-                name="experience"
-                type="number"
-                placeholder="e.g., 3"
-                value={formData.experience}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<DollarSign className="h-5 w-5 text-gray-400" />}
-                label="Current CTC *"
-                name="currentCTC"
-                type="text"
-                placeholder="e.g., ₹5 LPA"
-                value={formData.currentCTC}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<DollarSign className="h-5 w-5 text-gray-400" />}
-                label="Expected CTC *"
-                name="expectedCTC"
-                type="text"
-                placeholder="e.g., ₹7 LPA"
-                value={formData.expectedCTC}
-                onChange={handleChange}
-              />
-              <FormInput
-                icon={<Award className="h-5 w-5 text-gray-400" />}
-                label="Highest Qualification *"
-                name="qualification"
-                type="text"
-                placeholder="e.g., B.Tech, MBA"
-                value={formData.qualification}
-                onChange={handleChange}
-              />
-              <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">
-                  Upload Resume *
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FileText className="h-5 w-5 text-gray-400" />
+          {job ? (
+            <form onSubmit={handleSubmit} className="p-8">
+              {error && (
+                <div className="mb-4 p-4 bg-red-100 text-red-800 rounded-lg">
+                  {error}
+                </div>
+              )}
+              <div className="grid md:grid-cols-2 gap-6">
+                <FormInput
+                  icon={<User className="h-5 w-5 text-gray-400" />}
+                  label="Full Name *"
+                  name="name"
+                  type="text"
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<Mail className="h-5 w-5 text-gray-400" />}
+                  label="Email ID *"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<Phone className="h-5 w-5 text-gray-400" />}
+                  label="Contact Number *"
+                  name="contact"
+                  type="tel"
+                  placeholder="Enter contact number"
+                  value={formData.contact}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<Clock className="h-5 w-5 text-gray-400" />}
+                  label="Notice Period (in days) *"
+                  name="noticePeriod"
+                  type="number"
+                  placeholder="e.g., 30"
+                  value={formData.noticePeriod}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<Briefcase className="h-5 w-5 text-gray-400" />}
+                  label="Experience (in years) *"
+                  name="experience"
+                  type="number"
+                  placeholder="e.g., 3"
+                  value={formData.experience}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<DollarSign className="h-5 w-5 text-gray-400" />}
+                  label="Current CTC *"
+                  name="currentCTC"
+                  type="text"
+                  placeholder="e.g., ₹5 LPA"
+                  value={formData.currentCTC}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<DollarSign className="h-5 w-5 text-gray-400" />}
+                  label="Expected CTC *"
+                  name="expectedCTC"
+                  type="text"
+                  placeholder="e.g., ₹7 LPA"
+                  value={formData.expectedCTC}
+                  onChange={handleChange}
+                />
+                <FormInput
+                  icon={<Award className="h-5 w-5 text-gray-400" />}
+                  label="Highest Qualification *"
+                  name="qualification"
+                  type="text"
+                  placeholder="e.g., B.Tech, MBA"
+                  value={formData.qualification}
+                  onChange={handleChange}
+                />
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Upload Resume *
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <FileText className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      required
+                      onChange={handleResumeChange}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white"
+                    />
                   </div>
-                  <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    required
-                    onChange={handleResumeChange}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white"
-                  />
                 </div>
               </div>
+              <div className="mt-8 text-center">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`bg-gradient-to-r bg-[#3e94b3] hover:bg-[#7fbadd] text-white px-12 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 ${
+                    loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {loading ? 'Submitting...' : 'Submit Application'}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="p-8 text-center text-gray-500">
+              Please go back and select a job before applying.
             </div>
-            <div className="mt-8 text-center">
-              <button
-                type="submit"
-                disabled={loading}
-                className={`bg-gradient-to-r bg-[#3e94b3] hover:bg-[#7fbadd] text-white px-12 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-              >
-                {loading ? 'Submitting...' : 'Submit Application'}
-              </button>
-            </div>
-          </form>
+          )}
         </div>
         <div className="mt-6 text-center">
           <button
@@ -227,7 +245,7 @@ const FormInput = ({
   name: string;
   type: string;
   placeholder: string;
-  value: string;
+  value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => (
   <div>

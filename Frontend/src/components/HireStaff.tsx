@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Building, User, Phone, Mail, MapPin, Briefcase, Award, Hash } from 'lucide-react';
+import {Building, User, Phone, Mail, MapPin, Briefcase, Award, Hash } from 'lucide-react';
 
 interface HireStaffProps {
   onBack: () => void;
 }
 
-const HireStaff: React.FC<HireStaffProps> = ({ onBack }) => {
+const HireStaff: React.FC<HireStaffProps> = ({}) => {
   const [formData, setFormData] = useState({
     companyName: '',
     skill: '',
@@ -31,29 +31,6 @@ const HireStaff: React.FC<HireStaffProps> = ({ onBack }) => {
     // Handle form submission here
     alert('Form submitted successfully!');
   };
-
-  const skillOptions = [
-    'Software Development',
-    'Web Development',
-    'Mobile Development',
-    'Data Science',
-    'Machine Learning',
-    'DevOps',
-    'UI/UX Design',
-    'Digital Marketing',
-    'Sales',
-    'Customer Service',
-    'Project Management',
-    'Business Analysis',
-    'Quality Assurance',
-    'Database Administration',
-    'Network Administration',
-    'Cybersecurity',
-    'Content Writing',
-    'Graphic Design',
-    'Accounting',
-    'Human Resources'
-  ];
 
   const experienceOptions = [
     'Fresher (0 years)',

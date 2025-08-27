@@ -177,13 +177,6 @@ const JobManagement: React.FC<JobManagementProps> = ({
     }));
   };
 
-  const addBenefit = () => {
-    setJobForm(prev => ({
-      ...prev,
-      benefits: [...prev.benefits, ''],
-    }));
-  };
-
   const updateRequirement = (index: number, value: string) => {
     setJobForm(prev => ({
       ...prev,
@@ -191,12 +184,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
     }));
   };
 
-  const updateBenefit = (index: number, value: string) => {
-    setJobForm(prev => ({
-      ...prev,
-      benefits: prev.benefits.map((benefit, i) => (i === index ? value : benefit)),
-    }));
-  };
+
 
   const removeRequirement = (index: number) => {
     setJobForm(prev => ({
@@ -205,12 +193,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
     }));
   };
 
-  const removeBenefit = (index: number) => {
-    setJobForm(prev => ({
-      ...prev,
-      benefits: prev.benefits.filter((_, i) => i !== index),
-    }));
-  };
+ 
 
   return (
     <div>
