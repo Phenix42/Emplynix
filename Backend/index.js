@@ -3,12 +3,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import authRoutes from './routes/auth.js';
 import jobRoutes from './routes/jobs.js';
 import candidateRoutes from './routes/candidates.js';
 import contactRoutes from './routes/contact.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 // Get __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -21,22 +22,24 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Allowed origins
-const allowedOrigins = ['https://emplynix.com', 'http://localhost:5173'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://emplynix.com'
+];
 
 // CORS middleware
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like Postman)
-    if (!origin) return callback(null, true);
+    console.log('Incoming Origin:', origin);
+    if (!origin) return callback(null, true); // Allow Postman or curl requests
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
     }
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Origin','Content-Type','Accept','Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization']
 }));
 
 // Handle preflight requests
@@ -56,10 +59,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'Uploads')));
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/staffing_db', {
-    useNewUrlParser: true,
-    // useUnifiedTopology is default in mongoose 6+, no need to set
-  })
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/staffing_db')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => {
     console.error('MongoDB connection error:', err);
@@ -79,7 +79,7 @@ app.get('/api/health', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Server Error:', err.stack);
   res.status(500).json({ message: 'Server error', error: err.message });
 });
 
