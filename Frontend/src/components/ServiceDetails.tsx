@@ -1,6 +1,6 @@
 import React from "react";
-import permnentstaffing from "../asset/CCC-services4.jpg"
-import remote from "../asset/DD-services_home3.jpg"
+import permnentstaffing from "../Asset/CCC-services4.jpg"
+import remote from "../Asset/DD-services_home3.jpg"
 import RPO from "../Asset/DD-services_home4.jpg"
 import contract from "../Asset/contract_staffing.jpg"
 const serviceData: Record<
