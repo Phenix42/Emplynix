@@ -291,6 +291,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, token }) => {
             loading={loading}
             token={token}
             refreshJobs={fetchJobs}
+            apiUrl={API_URL} 
           />
         )}
 

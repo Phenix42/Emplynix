@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
   const [status, setStatus] = useState<string>('');
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [errorBanner, setErrorBanner] = useState<string>('');
@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
     setErrorBanner('');
 
     try {
-      const res = await fetch('http://localhost:5001/api/contact', {
+      const res = await fetch(`${API_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

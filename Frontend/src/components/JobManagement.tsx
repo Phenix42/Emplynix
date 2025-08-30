@@ -24,6 +24,7 @@ interface JobManagementProps {
   loading: boolean;
   token: string;
   refreshJobs?: () => void;
+  apiUrl: string;
 }
 
 const JobManagement: React.FC<JobManagementProps> = ({
@@ -33,6 +34,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
   loading,
   token,
   refreshJobs,
+  apiUrl
 }) => {
   const [showJobForm, setShowJobForm] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
@@ -66,7 +68,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
         benefits: jobForm.benefits.filter(benefit => benefit.trim() !== ''),
       };
       const response = await fetch(
-        editingJob ? `http://localhost:5001/api/jobs/${editingJob._id}` : 'http://localhost:5001/api/jobs',
+        editingJob ? `${apiUrl}/jobs/${editingJob._id}` : `${apiUrl}/jobs`,
         {
           method: editingJob ? 'PUT' : 'POST',
           headers: {
@@ -107,7 +109,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
   const handleDeleteJob = async (jobId: string) => {
     if (window.confirm('Are you sure you want to delete this job? This action cannot be undone.')) {
       try {
-        const response = await fetch(`http://localhost:5001/api/jobs/${jobId}`, {
+        const response = await fetch(`${apiUrl}/jobs/${jobId}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,

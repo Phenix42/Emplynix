@@ -29,6 +29,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ job, onBack }) 
     qualification: '',
     resume: null as File | null,
   });
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -67,7 +68,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({ job, onBack }) 
     }
 
     try {
-      const response = await fetch('http://localhost:5001/api/candidates/apply', {
+      const response = await fetch(`${API_URL}/candidates/apply`, {
         method: 'POST',
         body: formDataToSend,
       });

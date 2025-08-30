@@ -31,13 +31,13 @@ const [selectedJob, setSelectedJob] = useState<Job | null>(null);
     keyword: "",
     location: "",
   })
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
   useEffect(() => {
     const validateToken = async () => {
       const storedToken = localStorage.getItem('adminToken');
       if (storedToken) {
         try {
-          await axios.get('http://localhost:5001/api/auth/validate', {
+          await axios.get(`${API_URL}/auth/validate`, {
             headers: { Authorization: `Bearer ${storedToken}` },
           });
           setIsLoggedIn(true);
