@@ -16,7 +16,7 @@ const Jobs: React.FC<JobsProps> = ({ onJobClick }) => {
   const [searchLocation, setSearchLocation] = useState<string>('');
   const [visibleCount, setVisibleCount] = useState<number>(4);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchJobs = async () => {

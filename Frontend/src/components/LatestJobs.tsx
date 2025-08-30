@@ -16,7 +16,7 @@ const LatestJobs: React.FC<LatestJobsProps> = ({ setCurrentPage, setSelectedJob,
   const [error, setError] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(4);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchJobs = async () => {

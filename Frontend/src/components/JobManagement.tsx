@@ -24,7 +24,6 @@ interface JobManagementProps {
   loading: boolean;
   token: string;
   refreshJobs?: () => void;
-  apiUrl: string;
 }
 
 const JobManagement: React.FC<JobManagementProps> = ({
@@ -34,7 +33,6 @@ const JobManagement: React.FC<JobManagementProps> = ({
   loading,
   token,
   refreshJobs,
-  apiUrl
 }) => {
   const [showJobForm, setShowJobForm] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
@@ -52,7 +50,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
   });
   const [error, setError] = useState<string | null>(null);
   const [popup, setPopup] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
-
+const API_URL = import.meta.env.VITE_API_URL
   const handleJobSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -68,7 +66,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
         benefits: jobForm.benefits.filter(benefit => benefit.trim() !== ''),
       };
       const response = await fetch(
-        editingJob ? `${apiUrl}/jobs/${editingJob._id}` : `${apiUrl}/jobs`,
+        editingJob ? `${API_URL}/jobs/${editingJob._id}` : `${API_URL}/jobs`,
         {
           method: editingJob ? 'PUT' : 'POST',
           headers: {
@@ -109,7 +107,7 @@ const JobManagement: React.FC<JobManagementProps> = ({
   const handleDeleteJob = async (jobId: string) => {
     if (window.confirm('Are you sure you want to delete this job? This action cannot be undone.')) {
       try {
-        const response = await fetch(`${apiUrl}/jobs/${jobId}`, {
+        const response = await fetch(`${API_URL}/jobs/${jobId}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,

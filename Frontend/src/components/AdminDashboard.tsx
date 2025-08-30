@@ -10,7 +10,7 @@ interface AdminDashboardProps {
   token: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const API_URL = import.meta.env.VITE_API_URL ;
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, token }) => {
   const [activeSection, setActiveSection] = useState<'jobs' | 'candidates'>('jobs');
@@ -291,7 +291,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout, token }) => {
             loading={loading}
             token={token}
             refreshJobs={fetchJobs}
-            apiUrl={API_URL} 
           />
         )}
 

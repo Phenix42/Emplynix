@@ -36,7 +36,7 @@ const CandidateManagement: React.FC<CandidateManagementProps> = ({
   const [candidateFilter, setCandidateFilter] = useState<'latest' | 'oldest'>('latest');
   const [statusFilter, setStatusFilter] = useState<CandidateStatus | 'all'>('all');
 
-import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+import.meta.env.VITE_API_URL;
 
   // Group candidates by job
   useEffect(() => {

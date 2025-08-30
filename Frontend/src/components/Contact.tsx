@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
+const API_URL = import.meta.env.VITE_API_URL;
   const [status, setStatus] = useState<string>('');
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [errorBanner, setErrorBanner] = useState<string>('');

@@ -31,7 +31,7 @@ const [selectedJob, setSelectedJob] = useState<Job | null>(null);
     keyword: "",
     location: "",
   })
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const API_URL = import.meta.env.VITE_API_URL ;
   useEffect(() => {
     const validateToken = async () => {
       const storedToken = localStorage.getItem('adminToken');
