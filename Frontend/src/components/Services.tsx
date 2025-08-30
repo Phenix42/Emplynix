@@ -67,7 +67,7 @@ const Services: React.FC = () => {
       className="relative bg-fixed bg-center bg-cover py-16"
       id="services"
       style={{
-        backgroundImage: bgtint,
+         backgroundImage: `url(${bgtint})`
       }}
     >
       {/* section-level black tint */}
