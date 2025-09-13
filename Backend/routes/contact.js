@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
       service: 'gmail',
       auth: {
         user: 'hr@emplynix.com',       // your Gmail
-        pass: 'fmkl rfps rsvr dlla'           // generated app password (not your login password)
+        pass: 'uciu oyzj nump mwvm'           // generated app password (not your login password)
       }
     });
 
