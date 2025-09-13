@@ -16,22 +16,54 @@ import JobDetails from './components/JobDetails';
 import JobApplicationForm from './components/JobApplicationForm';
 import ServiceDetails from './components/ServiceDetails';
 import axios from 'axios';
-import {Job} from '../src/types/Job'
+import { Job } from '../src/types/Job';
 import { mapToFullJob } from './components/utils';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState<string | null>(localStorage.getItem('adminToken'));
-const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [jobToApply, setJobToApply] = useState<Job | null>(null);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [searchFilters, setSearchFilters] = useState({
     keyword: "",
     location: "",
-  })
-const API_URL = import.meta.env.VITE_API_URL ;
+  });
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  // ✅ Helper function for navigation (syncs with browser history)
+  const navigate = (page: string) => {
+    setCurrentPage(page);
+    window.history.pushState({ page }, "", `#${page}`);
+  };
+
+  // ✅ On initial load, sync with URL hash
+  useEffect(() => {
+    const hashPage = window.location.hash.replace("#", "");
+    if (hashPage) {
+      setCurrentPage(hashPage);
+    }
+  }, []);
+
+  // ✅ Listen for browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state?.page) {
+        setCurrentPage(event.state.page);
+      } else {
+        setCurrentPage("home");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  // ✅ Validate token on load
   useEffect(() => {
     const validateToken = async () => {
       const storedToken = localStorage.getItem('adminToken');
@@ -42,7 +74,10 @@ const API_URL = import.meta.env.VITE_API_URL ;
           });
           setIsLoggedIn(true);
           setToken(storedToken);
-          setCurrentPage('admin');
+          const hashPage = window.location.hash.replace("#", "");
+if (hashPage === "admin") {
+  navigate("admin");
+}
         } catch (error: any) {
           setTokenError(
             error.response?.data?.message?.includes('token')
@@ -53,18 +88,19 @@ const API_URL = import.meta.env.VITE_API_URL ;
           localStorage.removeItem('adminUser');
           setIsLoggedIn(false);
           setToken(null);
-          setCurrentPage('login');
+          navigate('login');
         }
       } else {
         setIsLoggedIn(false);
         setToken(null);
-        setCurrentPage('home');
+        navigate('home');
       }
     };
 
     validateToken();
   }, []);
 
+  // ✅ Scroll to top when page changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
@@ -73,7 +109,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
     localStorage.setItem('adminToken', newToken);
     setIsLoggedIn(true);
     setToken(newToken);
-    setCurrentPage('admin');
+    navigate('admin');
     setTokenError(null);
   };
 
@@ -82,7 +118,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
     localStorage.removeItem('adminUser');
     setIsLoggedIn(false);
     setToken(null);
-    setCurrentPage('home');
+    navigate('home');
     setTokenError(null);
   };
 
@@ -95,7 +131,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
             <button
               onClick={() => {
                 handleLogout();
-                setCurrentPage('login');
+                navigate('login');
               }}
               className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
             >
@@ -118,14 +154,14 @@ const API_URL = import.meta.env.VITE_API_URL ;
       case 'login':
         return <div className="pt-16"><Login onLoginSuccess={handleLoginSuccess} /></div>;
       case 'hirestaff':
-        return <div className="pt-16"><HireStaff onBack={() => setCurrentPage('home')} /></div>;
+        return <div className="pt-16"><HireStaff onBack={() => navigate('home')} /></div>;
       case 'jobs':
         return (
           <div className="pt-16">
             <Jobs
               onJobClick={(job) => {
                 setSelectedJob(job);
-                setCurrentPage('jobDetails');
+                navigate('jobDetails');
               }}
             />
           </div>
@@ -135,10 +171,10 @@ const API_URL = import.meta.env.VITE_API_URL ;
           <div className="pt-16">
             <JobDetails
               job={selectedJob}
-              onBack={() => setCurrentPage('jobs')}
+              onBack={() => navigate('jobs')}
               onApply={(job) => {
                 setJobToApply(mapToFullJob(job));
-                setCurrentPage('jobApplication');
+                navigate('jobApplication');
               }}
             />
           </div>
@@ -148,7 +184,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
           <div className="pt-16">
             <JobApplicationForm
               job={jobToApply}
-              onBack={() => setCurrentPage('jobDetails')}
+              onBack={() => navigate('jobDetails')}
             />
           </div>
         );
@@ -160,22 +196,21 @@ const API_URL = import.meta.env.VITE_API_URL ;
       case 'information-technology':
         return (
           <div className="pt-40">
-            <ServiceDetails serviceId={currentPage} setCurrentPage={setCurrentPage} />
+            <ServiceDetails serviceId={currentPage} setCurrentPage={navigate} />
           </div>
         );
       case 'home':
       default:
         return (
           <>
-            <Hero setCurrentPage={setCurrentPage} setSearchFilters={setSearchFilters}/>
+            <Hero setCurrentPage={navigate} setSearchFilters={setSearchFilters} />
             <LatestJobs
-             setCurrentPage={setCurrentPage} 
-             setSelectedJob={setSelectedJob} 
-             searchFilters={searchFilters} 
+              setCurrentPage={navigate}
+              setSelectedJob={setSelectedJob}
+              searchFilters={searchFilters}
             />
-            <Employers setCurrentPage={setCurrentPage} /> {/* Pass setCurrentPage */}
+            <Employers setCurrentPage={navigate} />
             <Services />
-      
           </>
         );
     }
@@ -184,7 +219,9 @@ const API_URL = import.meta.env.VITE_API_URL ;
   return (
     <div className="min-h-screen bg-white">
       {currentPage !== 'admin' && <TopBar />}
-      {currentPage !== 'admin' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+      {currentPage !== 'admin' && (
+        <Header currentPage={currentPage} setCurrentPage={navigate} />
+      )}
       {renderPage()}
       {currentPage !== 'login' && currentPage !== 'admin' && <Footer />}
     </div>

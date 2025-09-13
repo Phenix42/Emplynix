@@ -1,6 +1,6 @@
-import logo from "../Asset/LogoR.png"
-import map from "../Asset/mappin.png"
-import {Mail, MapPin, Phone } from 'lucide-react';
+import logo from "../Asset/LogoR.png";
+import map from "../Asset/mappin.png";
+import { Mail, MapPin, Phone, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,25 +9,28 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-          
-            
             <div className="w-36 h-auto">
-                      <img
-      src={logo}
-      alt="Company Logo"
-      className="w-full h-auto object-contain hover:opacity-90 transition-opacity duration-200"
-    />
+              <img
+                src={logo}
+                alt="Company Logo"
+                className="w-full h-auto object-contain hover:opacity-90 transition-opacity duration-200"
+              />
             </div>
-            
+
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Emplynix is a leading staffing solutions provider connecting top talent with exceptional opportunities. 
-              We specialize in permanent placements, contract staffing, and executive search across all industries.
+              Emplynix is a leading staffing solutions provider connecting top
+              talent with exceptional opportunities. We specialize in permanent
+              placements, contract staffing, and executive search across all
+              industries.
             </p>
-            
+
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400" />
-                <span className="text-gray-300">50,2nd cross, Rajarajeswari Nagar, Devasandra, KRPURAM, Bangalore, Karnataka-560036</span>
+                <span className="text-gray-300">
+                  50, 2nd cross, Rajarajeswari Nagar, Devasandra, KRPURAM,
+                  Bangalore, Karnataka-560036
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-blue-400" />
@@ -44,41 +47,93 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6">Explore</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200">About us</a></li>
-              <li><a href="#services" className="text-gray-300 hover:text-white transition-colors duration-200">Services</a></li>
-              <li><a href="#jobs" className="text-gray-300 hover:text-white transition-colors duration-200">Job Openings</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200">Contact us</a></li>
+              <li>
+                <a href="#about" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  About us
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="#jobs" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Job Openings
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Contact us
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-      {/* Our Address */}
-<div>
-  <h3 className="text-lg font-semibold mb-6">Our Address</h3>
-  <div className="bg-gray-800 p-4 rounded-lg">
-    <a 
-      href="https://www.google.com/maps?q=50,2nd+cross,Rajarajeswari+Nagar,Devasandra,KRPURAM,Bangalore,Karnataka-560036" 
-      target="_blank" 
-      rel="noopener noreferrer"
-    >
-      <img
-        src={map}
-        alt="Company Location"
-        className="w-full h-32 object-cover rounded mb-4 hover:opacity-90 transition-opacity duration-200"
-      />
-    </a>
-    <p className="text-sm text-gray-300">
-      Visit our office for in-person consultations and meetings.
-    </p>
-  </div>
-</div>
+          {/* Our Address + Social */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6">Our Address</h3>
+            <div className="bg-gray-800 p-4 rounded-lg">
+              <a
+                href="https://www.google.com/maps?q=50,2nd+cross,Rajarajeswari+Nagar,Devasandra,KRPURAM,Bangalore,Karnataka-560036"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={map}
+                  alt="Company Location"
+                  className="w-full h-32 object-cover rounded mb-4 hover:opacity-90 transition-opacity duration-200"
+                />
+              </a>
+              <p className="text-sm text-gray-300 mb-4">
+                Visit our office for in-person consultations and meetings.
+              </p>
+
+              {/* Social Media */}
+              <h4 className="text-md font-semibold mb-3">Follow Us</h4>
+              <div className="flex space-x-4">
+                <a
+                  href="ttps://www.facebook.com/people/Emplynix-staffing-solutions/61580298878010/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-blue-500 transition-colors duration-200"
+                >
+                  <Facebook className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://x.com/Emplynix_Sol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-sky-400 transition-colors duration-200"
+                >
+                  <Twitter className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.instagram.com/emplynix_staffing_solutions/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-pink-500 transition-colors duration-200"
+                >
+                  <Instagram className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/emplynix-staffing-solutions/about/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+                >
+                  <Linkedin className="h-6 w-6" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2025 - All Rights Reserved | Emplynix Staffing Solutions Inc 
+              © 2025 - All Rights Reserved | Emplynix Staffing Solutions Inc
             </p>
           </div>
         </div>

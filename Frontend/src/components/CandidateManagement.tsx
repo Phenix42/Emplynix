@@ -200,7 +200,7 @@ import.meta.env.VITE_API_URL;
                   onChange={(e) => setStatusFilter(e.target.value as CandidateStatus | 'all')}
                   className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
                 >
-                  <option value="all">All Statuses</option>
+                  <option value="all">All Status</option>
                   <option value="applied">Applied</option>
                   <option value="screening">Screening</option>
                   <option value="interview">Interview</option>

@@ -5,7 +5,7 @@ import {
   Phone,
   Clock,
   Briefcase,
-  DollarSign,
+  IndianRupee ,
   Award,
   FileText,
   ArrowLeft,
@@ -156,7 +156,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
                   onChange={handleChange}
                 />
                 <FormInput
-                  icon={<DollarSign className="h-5 w-5 text-gray-400" />}
+                  icon={<IndianRupee className="h-5 w-5 text-gray-400" />}
                   label="Current CTC *"
                   name="currentCTC"
                   type="text"
@@ -165,7 +165,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
                   onChange={handleChange}
                 />
                 <FormInput
-                  icon={<DollarSign className="h-5 w-5 text-gray-400" />}
+                  icon={<IndianRupee className="h-5 w-5 text-gray-400" />}
                   label="Expected CTC *"
                   name="expectedCTC"
                   type="text"
@@ -221,7 +221,7 @@ const API_URL = import.meta.env.VITE_API_URL ;
         <div className="mt-6 text-center">
           <button
             onClick={onBack}
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+            className="inline-flex items-center text-#7fbadd hover:text-#7fbadd font-medium"
           >
             <ArrowLeft className="h-5 w-5 mr-1" />
             Back to Job Details

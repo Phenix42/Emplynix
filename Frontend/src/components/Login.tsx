@@ -164,7 +164,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             <p className="text-gray-600">
               Don't have an account?{' '}
               <a
-                href={`mailto:sk.hussain@gmail.com?subject=Request%20for%20Admin%20Account&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20an%20admin%20account.Thank%20you.`}
+                href={`mailto:hr@emplynix.com?subject=Request%20for%20Admin%20Account&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20an%20admin%20account.Thank%20you.`}
                 className="text-[#3e94b3] hover:text-[#7fbadd] font-medium transition-colors duration-200"
               >
                 Contact administrator

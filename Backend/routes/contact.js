@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'reshmapattan9332@gmail.com',       // your Gmail
+        user: 'hr@emplynix.com',       // your Gmail
         pass: 'fmkl rfps rsvr dlla'           // generated app password (not your login password)
       }
     });
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
     // Email content
     const mailOptions = {
       from: email, // sender is the user's email
-      to: 'reshmapattan9332@gmail.com',
+      to: 'hr@emplynix.com',
       replyTo: email, // receiving email (your admin inbox)
       subject: `Contact Form: ${subject}`,
       html: `
